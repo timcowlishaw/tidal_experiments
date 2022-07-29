@@ -45,7 +45,11 @@ unsolo 8
 hush
 
 
+do
+    unsolo 1
+    unsolo 8
 
+hush
 do
     d1 $ slow 2 $ "[fsjul22:0|fsjul22:1]" # room 0.5  # delay 0.6  # delaytime 0.22 # delayfeedback 0.3
     d2 $ slow 2 $ "fsjul22:8" # room 0.2 # gain 1.5 # release 0.5

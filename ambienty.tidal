@@ -1,0 +1,24 @@
+setbpm 12
+
+d1 $ note "c5 c5 af4 bf4" # freq 480 # sound "choppad:9" # attack 1.0 # release 1.0 # delaytime 1 # delayfeedback 0.2 # delay 0.5 # room 0.3
+
+d1 $ note "f4 f4 c5 f4" # freq 480 # sound "choppad:9" # attack 1.0 # release 1.0 # delaytime 1 # delayfeedback 0.2 # delay 0.5 # room 0.3
+
+d2 $ fast 4 $ sometimesBy 0.3 (fast 4) $ stack [
+    sound "bd*4" # room 0.7,
+    sound "psbmid:3(3, 8)" # release 0.5,
+    sometimesBy 0.2 (slow 2) $ sound "hh*8" # room 0.6 # gain "[|0.9|0.7]*8",
+    sound "[~ ~ ~ [~ psbhi:0]|[~ psbhi:0 ~ ~]]" # delaytime 0.125 # delayfeedback 0.2 # delay 0.5 # release 0.5
+]
+
+d3 $ swing (1/32) $ stutter 1 2 $ fast 8 $ note "b3*2 b3*2 fs4 b3" # sound "superfm" # attack 0.05 # release 0.5 # gain 2.0
+
+d1 $ silence
+
+d2 $ silence
+
+hush
+
+d3 $ fast 4 $ sometimesBy 0.3 (fast "[2|4|8]") $ note "c5 [c5|e5] [c5|g4] c5" # sound "choppad:13" # attack 0.5 # release 1.2 # room 0.8
+
+d4 $ sometimes (fast 2) $ note "[{d2, d3, a3}|{f5, c6, d6}]" # s "superpiano" # release 5.0 # room 0.6
