@@ -1,0 +1,11 @@
+d1 $ slow 2 $ sound "[fsjul22:1]" # room 0.5 # delay 0.5 # delaytime 0.75 #delayfeedback 0.2 # gain 0.6
+d2 $ slow 4 $ sound "fsjul22:8" # room 0.5
+d3 $ sound "fsjul22:12*16" # gain "[0.6|0.4] [0.6|0.4] [0.6] [0.4|0.6]" |-| 0.5 # room 0.3
+d4 $ sound "fsjul22:2(3, 8)" # gain 0.7 # room 0.2
+d5 $ slow 4 $ note "d3!4 f3!2 e3!2" # sound "superfm" # gain 0.7 # release 1.0
+d6 $ sound "~ ~ ~ [~ fsjul22:18?]" # room 0.7 # gain 0.8
+d7 $ slow 4 $ sound "fsjul22:3!4 fsjul22:4!2 fsjul22:5!2" # release 0.8 # gain 0.6 # room 0.3
+d8 $ slow 4 $ note "bf4" # sound "fsjul22:6" # gain 0.5
+
+
+hush

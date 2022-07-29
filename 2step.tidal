@@ -1,0 +1,24 @@
+-- real fuckin' slow
+setcps 0.2
+
+
+-- Main drum loop
+do
+    d1 $ sound "808bd 808sd 808bd 808sd"
+    d2 $ sound "808oh*8" # lpf 3000
+
+
+-- "And the light it burns your skin..." / "2 step around the room"
+do
+    d3 $ slow 4 $ (note "a2 e2 b2 b2") # sound "superpiano" # legato 1 # lpf 2000
+    d4 $ slow 4 $ note "a3'sus4 e3'5 b3'5 b3'5" # sound "superpiano" # legato 1 # freeze 1 # tremolodepth 1 # tremolorate 4 # lpf 1000
+
+-- "That's not all...."
+do
+    d3 $ slow 4 $ note "cs3 a2 gs2 g2" # sound "superpiano" # legato 1 # lpf 2000
+    d4 $ slow 4 $ note "cs4'minor a3'sus2 e3'5 e3'5" # sound "superpiano" # legato 1 # freeze 1 # tremolodepth 1 # tremolorate 4 # lpf 1000
+
+
+
+-- fin
+hush

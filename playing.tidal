@@ -1,0 +1,171 @@
+let bpm = 120
+
+let bpm2cps x = x / 60 / 4
+let fracBpm2cps n m = bpm2cps (n / m)
+let setbpm = setcps . bpm2cps
+
+setbpm bpm
+
+-- sets the amount of operator 'op' in the superfm output mix
+-- (1 <= op <= 6)
+fmamp :: Int -> Pattern Double -> ControlPattern
+fmamp op = pF ("amp" ++ show op)
+
+-- sets the ratio for operator 'op'.
+-- the frequency is note * ratio + detune Hz
+-- (1 <= op <= 6)
+fmratio :: Int -> Pattern Double -> ControlPattern
+fmratio op = pF ("ratio" ++ show op)
+
+-- set the detune for operator 'op'
+fmdetune :: Int -> Pattern Double -> ControlPattern
+fmdetune op = pF ("detune" ++ show op)
+
+-- set the modulation of oerator opa by operator opb
+-- if opa == opb, then the modulation amount is multiplied by the
+-- 'feedback' parameter
+fmmod :: Int -> Int -> Pattern Double -> ControlPattern
+fmmod opa opb = pF ("mod" ++ show opa ++ show opb)
+
+-- feedback
+fmfeedback :: Pattern Double -> ControlPattern
+fmfeedback = pF "feedback"
+
+-- Envelope definition: each operator has an envelop with 4 steps
+fmeglevel :: Int -> Int -> Pattern Double -> ControlPattern
+fmeglevel op step = pF ("eglevel" ++ show op ++ show step)
+
+-- Envelope definition: sets the rate at which the envelope moves
+-- between steps.  Low numbers are slow, high numbers are fast.
+fmegrate :: Int -> Int -> Pattern Double -> ControlPattern
+fmegrate op step = pF ("egrate" ++ show op ++ show step)
+
+setbpm 144
+
+
+hush
+
+d3
+$ stut' 10 0.20 (|*| gain "0.8" )
+$ note "{[ds5, g5, as5] ~ [d5, f5, c6] [d5, as5]}%1"
+# sound "superhoover" #cutoff 1200
+# speed "[1, 1.02]"
+|-| note "12"
+# sus 0.4 # rel 0.4
+
+d3 $ silence
+
+d1 $ s "808bd*4"
+d4 $ s "~ 808sd ~ 808sd"
+d2 $ fast 4 $ s "hh*4" # amp "0.2!2 0.4 0.2"
+
+do
+    d1 $ silence
+    d4 $ silence
+    d2 $ silence
+
+
+d1 $ slow 4 $ note "[bf1, bf2, df4] ~" # sound "superpiano" # room 0.7 # release 1.0 # sustain 1.0
+d2 $ sound "hh*16" # amp "0.7 0.3!7" # room 0.7 # lpf 2000
+d3 $ sound "bd*4" # room 1.0 # gain 0.6
+d4 $ sound "~ sd [~ ~ ~ sd] ~"
+d5 $ note "bf3" # sound "supersquare" # lpf 250 # sustain 5.0 # release 1.0 # tremolorate (bpm2cps 209) # tremolodepth 5.0 # amp 1.0  # gain 2.0
+
+d1 $ silence
+
+hush
+
+
+d1 $ s "psblo:0 ~ ~ ~"
+d8 $ s "hhphi:15*16" # gain "[0.6 0.6 0.8 0.6]*4"
+d3 $ s "~ [~ psbmid:2] ~ [~ psbmid:1]"
+d4 $ s "~ ~ [  ~ ~ ~ ind:2] ~"
+d5 $ s "[fo:9(3, 8)?]" # gain 0.6 # delay 0.0 # room 0.2
+d6 $ slow 2 $ s "~ ~ ~ ~ [~ psbscr:4 ~ ~]"
+d9 $ s "psblo:1*4" # decay 0.2 # gain 0.9
+
+
+d1 $ s "esco:0(3,8)?" # room 1.0
+d2 $ s "esco:1 ~ ~ ~" # gain 1.0 # delaytime (fracBpm2cps 144 1) # delayfeedback 0.9 # delay 0.8
+d3 $ s "esco:2(13,16)" # attack 0.02 # release 0.1 # gain "[0.6 0.6 0.9 0.7]"
+d4 $ s "esco:3*16" # attack 0.02 # gain "[0.7 0.6 0.8 0.5|0.8]*4" # room 0.4
+d5 $ silence -- fast 1 $  s "bd*4" # triode 5.0 # gain 1.2 # room 0.5
+d5 $ s "esco:4 [~ esco:5?] [~ esco:5?] [~ esco:4?]" # gain 0.6
+d6 $ fast 1 $ s "esco:6(13, 16)?" # gain 0.6 # room 0.5
+d7 $ slow 2 $ s "[esco:7|esco:13|esco:14](3, 8)" # room 0.9
+d8 $ slow 4 $ s "esco:8" # room 0.9 # gain 0.9
+d9 $ slow 2 $ s "~ [~ ~ ~ esco:9?] [~ esco:9 ~ ~ ] esco:10?" # delay 0.9 # delaytime (bpm2cps 72) # delayfeedback 0.2
+d10 $ slow 2 $ s "esco:11?"
+d11 $ s "~ ~ ~ [~ esco:12?]" # room 0.5
+d12 $ slow 2 $ s "esco:15? ~ ~ ~" # attack 1.0 # hold 1.0 # release 1.0 # room 0.8 # lpf 1000 # delay 0.8 # delaytime (bpm2cps 72) # delayfeedback 0.6
+
+hush
+d1 $ silence
+d2 $ silence
+d3 $ silence
+d4 $ silence
+d5 $ silence
+d6 $ silence
+d7 $ silence
+d8 $ silence
+d9 $ silence
+d10 $ silence
+d11 $ silence
+d12 $ silence
+
+setbpm 120
+d1 $ slow 2 $ "fo:1" # gain 0.4
+d2 $ s "fo:9(3,8)?"
+
+d3 $ s "fo:13*8?" # attack 0.01 # decay 0.2 # hold 0.0 # release 0.05 # gain 1.2
+
+
+d4 $ s "808bd*4"
+
+d5 $ s "~ ~ ~ sd" # delaytime (fracBpm2cps 3) # delay 0.8 # delayfeedback 0.6
+
+d5 $ "~ ind:1 ~ ind:1" # speed 1.8 # decay 0.1 # hold 0.0 # release 0.25
+
+hush
+do
+    d1 $ fast 2 $ sound "[choppad(9,16)]" # n (9 + irand 3) # speed (slow 0.5 "1.0 [1.0|0.75] 1.5 [2.0|1.0]") # delay 1.0 # delaytime (bpm2cps 72) # delayfeedback 0.6 # attack 0.05 # release 0.1 # gain 0.7 # room 0.5
+    d2 $ fast 2 $ sound "choppad*16?" # n (9) # slow 1 (speed "0.5 0.5 0.5 [0.33|0.5|0.75]")  # delay 1.0 # delaytime (bpm2cps 72) # delayfeedback 0.6 # attack 0.05 # release 0.5 # gain 0.6 # room 0.5
+
+d3 $ s "hhphi:15*16" # gain "[0.8 0.8 1.0 0.75]*4"
+
+d5 $ silence -- s "808bd*4" # gain 1.2
+
+d8 $ silence -- slow 2 $ s "~ ~ ~ ~ [~ psbscr:4 ~ ~]"
+
+do
+    d6 $ s "psblo:0 ~ ~ ~"
+    d7 $ s "~ ~ ~ [ind:2|[ind:2 ~ ~ ind:2]]"
+
+d11 $ s "~ ~ ~ [~ esco:12?]" # room 0.5
+
+do
+    d1 $ fast 2 $ note "c5 c5 c5 f5" # sound "[choppad*16]" # n (6 + irand 2) # attack 0.1 # hold 1.0 # release 0.7 # gain 0.8 # lpf (slow 16 $ tri * 700) # waveloss 0.99 # triode 10.0 # tremolodepth 5.0 # tremolorate (fracBpm2cps 120 0.5) # room 0.7 # vowel "a a a a a a e o"
+    d2 $ fast 2 $ sound "[choppad*16]" # n (6 + irand 2) # speed 0.5 # attack 0.01 # release 0.8  # gain 0.7 # octersub 0.5 # tremolodepth 1.0 # tremolorate (bpm2cps 144) # lpf (sine * 2000)
+
+hush
+
+getcps
+
+d1 $ sound "[choppad*16]" # n (15 + irand 2) # attack 0.05 # release 0.1
+
+d1 $ sound "[choppad*16]" # n (19 + irand 2) # attack 0.05 # release 0.1
+
+do
+    d2 $ sound "[choppad(13, 16)]" # n (21 + irand 2) # attack 0.05 # release 0.1 # gain "0.6 0.6 0.8 [0.8|0.6]"
+    d1 $ sound "[choppad(9, 16)]" # speed 0.5 # n (21 + irand 2) # attack 0.05 # release 0.5 # octersub 2.0 # octer 0.5
+
+
+d1 $ slow 2 $ note "c3 [~ ~ ~ c3] ef3 [~ ~ [ef3|f3] [g2|bf2]]" # sound "superfm" # fmratio 1 2.5 # fmratio 2 1.0 # fmdetune 1 0.88 # attack 0.01 # release 2.0
+
+hush
+
+d1 $ slow 2 $ note "[c6 ~ ~ c6] [c6 ~ ~ c6] [ef6 ~ ef6 ~] [[g5 ~ ~ g5]|[g5 ~ ~ bf5]]" # sound "choppad:13" # speed "[0.999|1|1.001]" # room 0.6
+d2 $ note "c5*4" # sound "choppad:13" # room 0.6
+
+getcps
+

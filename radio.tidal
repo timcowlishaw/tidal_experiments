@@ -1,0 +1,81 @@
+setbpm 104
+
+d1 $ slow 2 $ s "[shlc:0|shlc:1]" # delaytime 0.75 # delay 0.8 # delayfeedback 0.3 # room 0.5
+d10 $ slow 4 $ s "shlc:3!4 shlc:4!2 shlc:5!2" # room 0.2 # release 1.0 # gain 1.0 # delay 0.5 # delayfeedback 0.3 # delaytime 0.25
+d11 $ slow 4 $ s "shlc:7"
+d9 $ fast 2 $ s "shlc:2(3,8)?" # gain 1.0
+d6 $ slow 2 $ sound "~ ~ ~ [~ esco:0] ~" # gain 1.0 # room 0.5
+d6 $ slow 2 $ s "esco:1" # gain 2.0 # room 0.5
+d7 $ s "hh*16" # gain "0.5!2 [0.7|0.5] [0.5|0.7]" # room 0.4
+d12 $ slow 2 $ s "~!2 [~ esco:3 ~!3] [~!3 esco!3]" # gain 1.5 # room 0.3
+d9 $ slow 2 $ note "d3!2 f3 e3" # s "superfm" # lpf (sine * 500)
+
+
+d7 $ slow 2 $ s "esco:1" # gain 2.0 # room 0.5
+d2 $ s "hh*16" # gain "[0.5 [0.7|0.5] 0.5 [0.7|0.5]]*2" |+| 0.2
+d3 $ slow 4 $ s "shlc:7"
+d8 $ slow 2 $ s "~!2 [~ esco:2 ~!2] [~|esco:2]" # gain 1.5 #  room 0.6
+d1 $ slow 4 $ note "d3 d3 f3 e3" # sound "superfm" # lpf (slow 4 $ tri * 500)
+d4 $ slow 2 $ s "[shlc:0|shlc:1]" # gain 1.2 # room 0.5 # delaytime 0.75 # delay 0.8 # delayfeedback 0.2
+d5 $ slow 2 $ note "bf4" # s "shlc:6"
+
+mapM_ mute $ [10, 4, 1, 7]
+
+hush
+
+do
+    d1 $ slow 2 $ s "[shlc:0|shlc:1]" # room 0.5 # delaytime 0.75 # delay 0.8 # delayfeedback 0.2
+    d2 $ slow 2 $ s "esco:1" # gain 2.0 # room 0.5
+
+d3 $ s "hh*16" # (fast 4 $ gain "0.5!2 0.7 [0.5|0.7]") |+| 2 # room 0.8
+
+d4 $ slow 4 $ note "d3 d3 f3 e3" # sound "superfm" # triode 3.0
+
+d5 $ slow 2 $ s "shlc:7" # delaytime 0.33 # delay 0.8 # delayfeedback 0.4 # room 0.8
+
+d6 $ s "shlc:2(3, 8)" # gain 1.2 # room 0.3
+
+d7 $ s "~ esco:8 ~ [~ esco:8?]" # room 0.3 # gain 1.5
+
+d8 $ slow 4 $ s "shlc:3!4 shlc:4!2 shlc:5!2" # room 0.5
+
+soloMultiple [1,2, 3, 4, 8]
+unsolo 8
+
+hush
+
+
+
+do
+    d1 $ slow 2 $ "[fsjul22:0|fsjul22:1]" # room 0.5  # delay 0.6  # delaytime 0.22 # delayfeedback 0.3
+    d2 $ slow 2 $ "fsjul22:8" # room 0.2 # gain 1.5 # release 0.5
+
+
+d3 $ slow 2 $ "~ ~ ~ [~ fsjul22:16]" # room 0.5
+
+d4 $ "fsjul22:12*16" # gain "[[0.6|0.8] 0.8 0.6 [0.6|0.8]]*4" # room 0.2
+
+d5 $ slow 4 $ note "d3!4 f3!2 e3!2" # s "superfm" # release 2.0
+
+d6 $ slow 4 $  "fsjul22:3!4 fsjul22:4!2 fsjul22:5!2" # release 1.0 # room 0.5 # delay 0.5 # delaytime 0.22 # delayfeedback 0.2
+
+d7 $ "fsjul22:2(3, 8)" # gain 0.9 # room 0.3
+
+d8 $ slow 4 $  note "bf4" # sound "fsjul22:6" # room 0.8 # gain 1.2 # triode 0.5
+
+
+d9 $ slow 2 $ sound "~ ~ ~ ~ ~ fsjul22:18!2 [~  fsjul22:18]" # gain 2.0  room 0.5
+
+d2 $ fast 3 $ sound "fsjul22:21*8" # room 0.5 # attack 0.01 # release 1.0 # gain "[0.9|0.7] [0.7|0.9] [0.9|0.7] 0.7" # delay 0.4 # delaytime 0.75 # delayfeedback 0.3
+
+d3 $
+
+
+
+d1 $ silence
+
+d8 $ silence
+
+hush
+
+soloMultiple [8, 1, 2, 5]

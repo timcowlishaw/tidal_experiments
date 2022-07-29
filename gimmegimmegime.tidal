@@ -1,0 +1,11 @@
+setcps (120/60/4)
+
+d1 $ slow 2 $ note "d5 a5 d6 a5 bf4 bf5 d6 bf5 c5 g5 d6 g5 d5 a5 d6 a5" # sound "gtr"
+d2 $ "bd*4"
+
+d3 $ "~ sd ~ sd"
+
+d4 $ "hh*16" # lpf 3000
+
+
+hush
