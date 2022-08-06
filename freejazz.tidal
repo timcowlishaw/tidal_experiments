@@ -1,0 +1,51 @@
+d1 $
+    sometimesBy 0.1 (slow 8) $
+    sometimesBy 0.3 (fast 8) $
+    fast 2 $
+    sometimesBy 0.5 rev $ stack [
+        --n "100" # release "[0.2|0.05|1.0|0.1]",
+        ---n "6" # release 5.0
+    ]
+        # sound "asfj"
+        # room 0.3
+
+
+d1 $
+fast 4 $
+degradeBy (cF 0.5 "9") $
+sometimesBy (cF 0.5 "10") (fast 8) $
+n "[0|1|54]" # sound "asfj" # room 0.7
+
+d2 $
+fast 4 $
+degradeBy (cF 0.5 "11") $
+sometimesBy (cF 0.5 "12") (fast 8) $
+n "[56|109|17|23|8|13|72]" # sound "asfj" # room 0.7
+
+
+d2 $ fast 4 $ stack [
+    degradeBy (cF 0.5 "9") $
+    sometimesBy (cF 0.5 "10") (fast 8) $
+    n (irand 118)
+    # release "[0.1|0.1|0.1|5.0]",
+    degradeBy (cF 0.5 "11") $
+    sometimesBy (cF 0.5 "12") rev $
+    sometimesBy (cF 0.5 "13") (fast 4) $
+    swing (1/32) $
+    n (irand 118) #
+    release ((*5) $ cF 0.5 "14") #
+    triode "[0.0|0.0|0.0|5.0]"
+] # s "asfj" # room 0.7
+
+hush
+
+
+(cF 0.5 "1")
+
+setbpm 104
+
+d1 $ fast 2 $ sound "bd" # speed (cF 0.5 "9")
+
+
+
+

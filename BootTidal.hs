@@ -9,7 +9,7 @@ import Control.Monad (liftM)
 
 hSetEncoding stdout utf8
 
-tidal <- startTidal (superdirtTarget {oLatency = 0.05, oAddress = "127.0.0.1", oPort = 57120}) (defaultConfig {cVerbose = True, cFrameTimespan = 1/20})
+tidal <- startTidal (superdirtTarget {oLatency = 0.05, oAddress = "127.0.0.1", oPort = 57120}) (defaultConfig {cVerbose = True, cFrameTimespan = 1/20, cCtrlAddr = "127.0.0.1", cCtrlPort = 6020})
 
 :{
 let only = (hush >>)
