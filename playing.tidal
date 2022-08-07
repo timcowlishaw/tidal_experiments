@@ -169,3 +169,9 @@ d2 $ note "c5*4" # sound "choppad:13" # room 0.6
 
 getcps
 
+d1 $ sound "{[bd sd] , [hh hh]}"
+d1 $ sound "[{bd, hh} {sd, hh}]"
+
+--    bd  | sd
+--    hh  | hh
+hush
